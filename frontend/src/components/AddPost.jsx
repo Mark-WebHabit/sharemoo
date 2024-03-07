@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import AvatarContainer from "./AvatarContainer";
 const AddPost = () => {
   return (
     // this component enables the user to add post, by clicking a form will prompt
     <Container>
-      <div className="avatar-container">
-        <img src="/media/user.png" alt="Profile" />
-      </div>
+      <AvatarContainer />
       <div className="post-bar">
         <p>Share something...</p>
       </div>
@@ -25,18 +24,7 @@ const Container = styled.div`
   margin: 0.5em 0 1em 0;
   padding: 0.5em 1em;
 
-  & .avatar-container {
-    border: 2px solid white;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-
-    & img {
-      width: 90%;
-    }
+ 
   }
 
   & .post-bar {

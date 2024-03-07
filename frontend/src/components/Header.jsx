@@ -5,6 +5,8 @@ const Header = () => {
   return (
     <Container>
       <p className="app-name">ShareMoo</p>
+
+      {/* remove the component below if the user isnt authenticated */}
       <div className="toggle-img">
         <img src="/media/user.png" alt="" />
         <img src="/media/down.png" alt="" />

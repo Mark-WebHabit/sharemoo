@@ -19,7 +19,21 @@ html {
   color: white;
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
   height: 100vh;
   background: var(--darkbody);
+}
+
+body::-webkit-scrollbar {
+  width: 4px;
+}
+body::-webkit-scrollbar-track {
+  background-color: var(--darkbody);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--gray);
 }
