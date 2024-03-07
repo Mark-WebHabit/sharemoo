@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const FormButton = ({ text }) => {
-  return <Button>{text}</Button>;
+const FormButton = ({ text, event }) => {
+  return <Button onClick={event}>{text}</Button>;
 };
 
 export default FormButton;
