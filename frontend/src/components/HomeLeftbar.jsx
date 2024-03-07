@@ -41,6 +41,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 1em;
+  position: sticky;
+  max-height: 95vh;
 
   & div {
     display: flex;

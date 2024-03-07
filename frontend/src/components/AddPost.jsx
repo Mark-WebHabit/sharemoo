@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 const AddPost = () => {
   return (
+    // this component enables the user to add post, by clicking a form will prompt
     <Container>
       <div className="avatar-container">
         <img src="/media/user.png" alt="Profile" />
@@ -21,7 +22,7 @@ const Container = styled.div`
   align-items: center;
   background: var(--gray);
   border-radius: 0.5em;
-  margin-top: 0.5em;
+  margin: 0.5em 0 1em 0;
   padding: 0.5em 1em;
 
   & .avatar-container {
