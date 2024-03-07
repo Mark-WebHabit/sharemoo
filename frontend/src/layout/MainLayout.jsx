@@ -33,6 +33,8 @@ const Container = styled.div`
   & .wrapper {
     flex: 1;
     display: grid;
-    grid-template-columns: 15% 1fr 15%;
+    grid-template-columns: 1fr;
+    place-items: center;
+    padding-top: calc(100vh / 10);
   }
 `;

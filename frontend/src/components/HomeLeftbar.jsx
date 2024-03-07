@@ -41,18 +41,23 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 1em;
-  position: sticky;
+  position: fixed;
+  height: 95vh
   max-height: 95vh;
-
+  top: calc(100vh / 10);
+  left: 0;
+  width: 20%;
+  
   & div {
     display: flex;
     align-items: center;
     padding: 0.5em 0 0.5em 2em;
     margin-bottom: 1em;
     cursor: pointer;
+    border-radius: 0.6em;
 
     & svg {
-      width: 20%;
+      width: 14%;
       margin-right: 0.5em;
       & g {
         fill: white;

@@ -8,12 +8,11 @@ const GridBodyLayout = ({ children }) => {
 export default GridBodyLayout;
 
 const Container = styled.main`
-  width: 60%;
-  max-width: 60%;
+  width: 50%;
+  max-width: 50%;
   height: 100%;
   display: flex;
   margin: 0 auto;
-  // overflow: hidden;
 
   & > div {
     flex: 1;

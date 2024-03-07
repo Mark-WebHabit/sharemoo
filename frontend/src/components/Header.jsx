@@ -22,6 +22,9 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 1em;
+  position: fixed;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 
   & .app-name {
     font-size: 1.5rem;
