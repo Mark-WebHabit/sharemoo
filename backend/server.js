@@ -2,16 +2,22 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { corsOptions } from "./config/corsOptions.js";
+import cookieParser from "cookie-parser";
 
 // routes
 import authRoutes from "./routes/authRoutes.js";
 
 // custom middleware
 import { errorLogger } from "./middlewares/errorLogger.js";
-const app = express();
-app.use(cors(corsOptions));
-app.use(express.json());
+
 dotenv.config();
+const app = express();
+
+// middlewares
+app.use(cors(corsOptions));
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 8081;
 

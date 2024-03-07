@@ -72,7 +72,6 @@ const Register = () => {
       navigate("/auth");
     } catch (error) {
       if (error.response) {
-        console.log(error.response);
         setError(error.response.data.message);
       } else {
         setError(error.message);

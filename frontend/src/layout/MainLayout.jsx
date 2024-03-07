@@ -1,6 +1,7 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { instance } from "../config/instance";
+import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
 import HomeLeftbar from "../components/HomeLeftbar";
@@ -10,6 +11,29 @@ import HomePage from "../views/HomePage";
 import Profile from "../views/Profile";
 
 const MainLayout = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    async function checkTokenValidity() {
+      try {
+        const response = await instance.get("/auth/check-cookie-token");
+
+        if (!response.data.success) {
+          navigate("/auth");
+        }
+      } catch (error) {
+        navigate("/auth");
+        // // make a prompt to display this message
+        // if (error.response) {
+        //   console.log(error.response.data.message);
+        // } else {
+        //   console.log(error.message);
+        // }
+      }
+    }
+
+    checkTokenValidity();
+  }, []);
+
   return (
     <Container>
       <Header />
