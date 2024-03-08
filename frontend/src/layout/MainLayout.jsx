@@ -2,15 +2,22 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { instance } from "../config/instance";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchLoggedInUser } from "../features/userSlice";
 
 import Header from "../components/Header";
 import HomeLeftbar from "../components/HomeLeftbar";
 import HomeRightbar from "../components/HomeRightbar";
 import GridBodyLayout from "./GridBodyLayout";
 import HomePage from "../views/HomePage";
-import Profile from "../views/Profile";
 
 const MainLayout = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchLoggedInUser());
+  }, []);
+
   const navigate = useNavigate();
   useEffect(() => {
     async function checkTokenValidity() {

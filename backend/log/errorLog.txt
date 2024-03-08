@@ -1,11 +1,7 @@
-3/7/2024, 10:08:10 PM		status:500		end-point:/auth/login		origin:Unknown Origin		error:Cannot read properties of undefined (reading 'length')
-3/7/2024, 10:12:38 PM		status:500		end-point:/auth/login		origin:Unknown Origin		error:Cannot read properties of undefined (reading 'length')
-3/7/2024, 10:13:56 PM		status:500		end-point:/auth/login		origin:Unknown Origin		error:Bind parameters must not contain undefined. To pass SQL NULL specify JS null
-3/7/2024, 10:14:26 PM		status:500		end-point:/auth/login		origin:Unknown Origin		error:Bind parameters must not contain undefined. To pass SQL NULL specify JS null
-3/7/2024, 10:14:47 PM		status:500		end-point:/auth/login		origin:Unknown Origin		error:Bind parameters must not contain undefined. To pass SQL NULL specify JS null
-3/7/2024, 10:15:12 PM		status:500		end-point:/auth/login		origin:Unknown Origin		error:Bind parameters must not contain undefined. To pass SQL NULL specify JS null
-3/7/2024, 10:20:05 PM		status:500		end-point:/auth/login		origin:Unknown Origin		error:Bind parameters must not contain undefined. To pass SQL NULL specify JS null
-3/7/2024, 10:56:22 PM		status:500		end-point:/auth/login		origin:Unknown Origin		error:localStorage is not defined
-3/7/2024, 11:14:13 PM		status:500		end-point:/auth/check-cookie-token		origin:http://localhost:5000		error:sessionId is not defined
-3/7/2024, 11:14:23 PM		status:500		end-point:/auth/check-cookie-token		origin:http://localhost:5000		error:sessionId is not defined
-3/7/2024, 11:14:23 PM		status:500		end-point:/auth/check-cookie-token		origin:http://localhost:5000		error:sessionId is not defined
+3/9/2024, 12:31:14 AM		status:500		end-point:/posts/new		origin:http://localhost:5000		error:Bind parameters must not contain undefined. To pass SQL NULL specify JS null
+3/9/2024, 12:39:41 AM		status:500		end-point:/posts/new		origin:http://localhost:5000		error:Cannot read properties of undefined (reading 'data')
+3/9/2024, 12:52:11 AM		status:500		end-point:/posts/new		origin:http://localhost:5000		error:Malformed communication packet.
+3/9/2024, 12:53:38 AM		status:500		end-point:/posts/new		origin:http://localhost:5000		error:Malformed communication packet.
+3/9/2024, 12:55:12 AM		status:500		end-point:/posts/new		origin:http://localhost:5000		error:Malformed communication packet.
+3/9/2024, 12:56:03 AM		status:500		end-point:/posts/new		origin:http://localhost:5000		error:Malformed communication packet.
+3/9/2024, 12:56:23 AM		status:500		end-point:/posts/new		origin:http://localhost:5000		error:Malformed communication packet.

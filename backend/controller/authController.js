@@ -87,7 +87,7 @@ export const login = asyncHandler(async (req, res) => {
   const token = await jwt.sign(
     { id: user.id, username: user.username },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "1hr" }
+    { expiresIn: "1h" }
   );
 
   const refreshToken = await jwt.sign(
@@ -163,7 +163,7 @@ export const checkTokenValidity = asyncHandler(async (req, res) => {
             const newAccessToken = jwt.sign(
               { id, username },
               process.env.ACCESS_TOKEN_SECRET,
-              { expiresIn: "1hr" }
+              { expiresIn: "1h" }
             );
 
             return res
@@ -178,7 +178,6 @@ export const checkTokenValidity = asyncHandler(async (req, res) => {
           }
         );
       } else {
-        console.log(decoded);
         return res.json({ success: true, message: "User Authorized" });
       }
     }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { instance } from "../config/instance";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,23 @@ const Login = () => {
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  // check if the user is already authentoicated but in the auth page
+  useEffect(() => {
+    async function checkTokenValidity() {
+      try {
+        const response = await instance.get("/auth/check-cookie-token");
+
+        if (response.data.success) {
+          navigate("/");
+        }
+      } catch (error) {
+        // do nothing becase if the user is not atuhenticated im expecting the response to be an error
+      }
+    }
+
+    checkTokenValidity();
+  }, []);
 
   const handleChange = (e) => {
     setError("");
@@ -49,6 +66,7 @@ const Login = () => {
       }
     }
   };
+
   return (
     <Container>
       <AuthErrorMessage error={error} />

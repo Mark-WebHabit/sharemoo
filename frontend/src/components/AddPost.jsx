@@ -1,15 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import AvatarContainer from "./AvatarContainer";
-const AddPost = () => {
+const AddPost = ({ handleAddPost }) => {
   return (
     // this component enables the user to add post, by clicking a form will prompt
     <Container>
       <AvatarContainer />
-      <div className="post-bar">
+      <div className="post-bar" onClick={handleAddPost}>
         <p>Share something...</p>
       </div>
-      <img src="/media/photo.png" alt="Upload Photo" className="add-photo" />
+      <img
+        src="/media/photo.png"
+        alt="Upload Photo"
+        className="add-photo"
+        onClick={handleAddPost}
+      />
     </Container>
   );
 };

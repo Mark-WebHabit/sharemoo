@@ -1,24 +1,24 @@
 import React from "react";
 import styled from "styled-components";
+import { timeSince } from "../utilities/timeSince.js";
 
-const PostCard = () => {
+const PostCard = ({ id, username, profile, photo, text, dt }) => {
   return (
     <Container>
       <div className="postowner-header">
         <div className="avatar-container">
           {/* replace the src with the actual profile photo of the user if there is */}
-          <img src="/media/user.png" alt="Profile" />
+          <img src={profile ? profile : "/media/user.png"} alt="Profile" />
         </div>
         <div className="post-info">
-          <p className="owner-name">Jane Doe</p>
-          <span className="time-passed">10min ago</span>
+          <p className="owner-name">{username}</p>
+          <span className="time-passed">{timeSince(dt)}</span>
         </div>
       </div>
       <hr />
       <div className="post-content">
-        <p>Hello world...</p>
-        {/* there could be an image in a post*/}
-        <img src="/dummy/image1.jpeg" alt="" />
+        {text !== "" && <p>{text}</p>}
+        {photo && <img src={photo} />}
       </div>
       <hr />
       <div className="post-action">
