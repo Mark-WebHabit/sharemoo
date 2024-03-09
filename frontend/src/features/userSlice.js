@@ -12,6 +12,15 @@ export const fetchLoggedInUser = createAsyncThunk("/user", async () => {
   }
 });
 
+export const logout = createAsyncThunk("/auth/logout/id", async (id) => {
+  try {
+    const response = await instance.get(`/auth/logout/${id}`);
+    return response.data.data[0];
+  } catch (error) {
+    catchError(error);
+  }
+});
+
 const initialState = {
   loggedInUser: {},
   systemError: "",
@@ -31,6 +40,10 @@ export const userSlice = createSlice({
       .addCase(fetchLoggedInUser.rejected, (state, action) => {
         console.log(action.error);
         state.systemError = action.error.message;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        console.log(action.payload);
+        // state.loggedInUser = {};
       });
   },
 });

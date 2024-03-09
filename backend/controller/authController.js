@@ -183,3 +183,28 @@ export const checkTokenValidity = asyncHandler(async (req, res) => {
     }
   );
 });
+
+export const logout = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  if (!id)
+    return res
+      .status(400)
+      .json({ success: false, message: "Cannot perform logout missing id" });
+
+  let query = "SELECT username, refresh_token FROM users WHERE id = ?";
+  const [result] = await pool.execute(query, [id]);
+
+  if (result.length == 0)
+    return res.status(404).json({ success: false, message: "Unknown User" });
+
+  query = "UPDATE users SET refresh_token = ? WHERE id = ?";
+  const response = await pool.execute(query, [null, id]);
+
+  console.log(response[0].affectedRows);
+
+  return res
+    .clearCookie("access_token")
+    .status(204)
+    .json({ success: true, data: [] });
+});

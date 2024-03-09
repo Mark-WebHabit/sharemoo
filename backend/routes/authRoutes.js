@@ -4,6 +4,7 @@ import {
   register,
   login,
   checkTokenValidity,
+  logout,
 } from "../controller/authController.js";
 
 // middleware
@@ -15,6 +16,7 @@ const router = express.Router();
 router
   .post("/register", register)
   .post("/login", login)
-  .get("/check-cookie-token", checkSession, checkTokenValidity);
+  .get("/check-cookie-token", checkSession, checkTokenValidity)
+  .get("/logout/:id", logout);
 
 export default router;

@@ -152,7 +152,7 @@ const Container = styled.div`
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.7);
-  z-index: 1;
+  z-index: 2;
   display: grid;
   place-items: center;
   backdrop-filter: blur(3px);
