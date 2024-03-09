@@ -5,3 +5,83 @@
 3/9/2024, 12:55:12 AM		status:500		end-point:/posts/new		origin:http://localhost:5000		error:Malformed communication packet.
 3/9/2024, 12:56:03 AM		status:500		end-point:/posts/new		origin:http://localhost:5000		error:Malformed communication packet.
 3/9/2024, 12:56:23 AM		status:500		end-point:/posts/new		origin:http://localhost:5000		error:Malformed communication packet.
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/20		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/15		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/19		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/14		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/13		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/17		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/5		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/16		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/18		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/4		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/20		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/15		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/19		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/14		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/13		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/17		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/16		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/18		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/5		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:38:46 PM		status:500		end-point:/posts/likes/4		origin:http://localhost:5000		error:count is not defined
+3/9/2024, 7:57:37 PM		status:500		end-point:/posts/likers/20		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/17		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/16		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/19		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/15		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/18		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/14		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/13		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/5		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/4		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/20		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/17		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/16		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/19		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/15		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/18		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/14		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/13		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/5		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:57:38 PM		status:500		end-point:/posts/likers/4		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/9/2024, 7:59:06 PM		status:500		end-point:/posts/likers/20		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:06 PM		status:500		end-point:/posts/likers/17		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:06 PM		status:500		end-point:/posts/likers/19		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:06 PM		status:500		end-point:/posts/likers/18		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:06 PM		status:500		end-point:/posts/likers/16		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:06 PM		status:500		end-point:/posts/likers/15		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/14		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/13		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/5		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/4		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/20		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/17		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/19		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/18		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/16		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/15		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/14		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/13		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/5		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:07 PM		status:500		end-point:/posts/likers/4		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/20		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/19		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/18		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/17		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/16		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/15		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/14		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/13		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/5		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/4		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/20		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/19		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/18		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/17		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/16		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/15		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/14		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/13		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/5		origin:http://localhost:5000		error:res is not defined
+3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/4		origin:http://localhost:5000		error:res is not defined

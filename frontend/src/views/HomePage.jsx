@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllPosts } from "../features/postsSlice";
@@ -7,54 +7,55 @@ import { fetchAllPosts } from "../features/postsSlice";
 import AddPost from "../components/AddPost";
 import PostCard from "../components/PostCard";
 import PostModal from "../components/PostModal";
+import { instance } from "../config/instance";
 
 const HomePage = () => {
   const [addPost, setAddPost] = useState(false);
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const dispatch = useDispatch();
-  const { posts } = useSelector((state) => state.posts);
-  const { responseCount } = useSelector((state) => state.posts);
+  const { responseCount, posts, fetchingStatus } = useSelector(
+    (state) => state.posts
+  );
+  const limit = 10;
 
   const handleAddPost = () => {
     setAddPost(!addPost);
   };
 
-  // Function to fetch posts
-  const fetchPosts = async () => {
-    try {
-      const limit = 10; // Number of posts to fetch per request
+  const fetchPosts = useCallback(async () => {
+    if (!hasMore) return;
 
-      dispatch(fetchAllPosts({ offset, limit }));
-      setOffset((prevOffset) => prevOffset + responseCount);
-      if (responseCount < limit) {
-        setHasMore(false); // No more posts to fetch
+    try {
+      const response = await dispatch(fetchAllPosts({ offset, limit }));
+      const newPosts = response.payload;
+
+      if (newPosts.length < limit) {
+        setHasMore(false);
       }
     } catch (error) {
       console.error(error);
-      // Handle error (e.g., show a message)
     }
-  };
+  }, [dispatch, offset, hasMore]);
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [fetchPosts]);
 
-  // Function to handle scroll and check if near bottom
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight ||
-      !hasMore
-    )
-      return;
-    fetchPosts();
-  };
+  const handleScroll = useCallback(() => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const clientHeight = window.innerHeight;
+
+    if (scrollTop + clientHeight >= scrollHeight - 5 && hasMore) {
+      setOffset((prevOffset) => prevOffset + 10); // Assuming each batch fetches 10 posts
+    }
+  }, [hasMore]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasMore]);
+  }, [handleScroll]);
 
   return (
     <Container>

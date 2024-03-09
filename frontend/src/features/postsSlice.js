@@ -12,7 +12,6 @@ export const fetchAllPosts = createAsyncThunk(
       );
       return response.data.data;
     } catch (error) {
-      console.log(error);
       catchError(error);
     }
   }
@@ -42,7 +41,6 @@ export const postsSlice = createSlice({
     builder
       .addCase(fetchAllPosts.fulfilled, (state, action) => {
         state.responseCount = action.payload.length;
-
         const newPosts = action.payload;
         const allPosts = [...state.posts, ...newPosts];
         state.posts = allPosts.filter(
@@ -51,8 +49,8 @@ export const postsSlice = createSlice({
         );
         state.error = "";
       })
+
       .addCase(fetchAllPosts.rejected, (state, action) => {
-        console.log(action.error);
         state.systemError = action.error.message;
       })
       .addCase(addPost.fulfilled, (state, action) => {

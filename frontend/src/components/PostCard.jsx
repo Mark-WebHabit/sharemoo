@@ -1,8 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { timeSince } from "../utilities/timeSince.js";
+import { instance } from "../config/instance.js";
+import { useSelector } from "react-redux";
 
 const PostCard = ({ id, username, profile, photo, text, dt }) => {
+  const [likes, setLikes] = useState(0);
+  const [likers, setLikers] = useState([]);
+  const userId = useSelector((state) => state.user.loggedInUser.id);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleToggleLike = async (e) => {
+    e.preventDefault();
+    if (isLiked) {
+      const response = await instance.post(`/posts/unlike`, {
+        user_id: userId,
+        post_id: id,
+      });
+      if (response.data.data.affectedRows === 1) {
+        const newLikers = likers.filter((val) => val.id !== userId);
+        setLikers(newLikers);
+        setLikes((like) => like - 1);
+
+        setIsLiked(false);
+      }
+    } else {
+      const response = await instance.post("posts/like", {
+        user_id: userId,
+        post_id: id,
+      });
+      if (response.data.data[0].affectedRows === 1) {
+        const myData = { id: userId };
+        setLikers((likers) => [...likers, myData]);
+        setLikes((like) => like + 1);
+
+        setIsLiked(true);
+      }
+    }
+  };
+
+  useEffect(() => {
+    async function getLikes() {
+      const response = await instance.get(`/posts/likes/${id}`);
+      setLikes(response.data.data || 0);
+    }
+
+    async function getPostLikers() {
+      const response = await instance.get(`/posts/likers/${id}`);
+      setLikers(response.data.data);
+    }
+
+    getLikes();
+    getPostLikers();
+  }, []);
+
+  useEffect(() => {
+    if (!likes && !likers) return;
+    if (!likes || likes === 0) return;
+
+    const isExist = likers.some((id) => id.id === userId);
+    setIsLiked(isExist);
+  }, [likes, likers]);
+
   return (
     <Container>
       <div className="postowner-header">
@@ -22,9 +81,9 @@ const PostCard = ({ id, username, profile, photo, text, dt }) => {
       </div>
       <hr />
       <div className="post-action">
-        <div className="action likes">
-          <img src="/media/like.png" alt="Like" />
-          <p>10 likes</p>
+        <div className="action likes" onClick={handleToggleLike}>
+          <img src={`/media/${isLiked ? "liked" : "like"}.png`} alt="Like" />
+          <p>{likes === 0 || likes > 1 ? `${likes} likes` : `${likes} like`}</p>
         </div>
         <div className="seperator"></div>
         <div className="action comment">

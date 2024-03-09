@@ -2,13 +2,26 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../features/userSlice.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const [isAuth, setIsAutth] = useState(false);
   const { id } = useSelector((state) => state.user.loggedInUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (
+      location.pathname === "/auth" ||
+      location.pathname === "/auth/register"
+    ) {
+      setIsAutth(true);
+    } else {
+      setIsAutth(false);
+    }
+  }, [location.pathname]);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -48,19 +61,21 @@ const Header = () => {
         <p className="app-name">ShareMoo</p>
 
         {/* remove the component below if the user isnt authenticated */}
-        <div
-          className="toggle-img"
-          data-class="add-setting"
-          onClick={handleOpen}
-        >
-          <img src="/media/user.png" alt="" data-class="add-setting" />
-          <img
-            src="/media/down.png"
-            alt=""
-            className="up-down"
+        {!isAuth && (
+          <div
+            className="toggle-img"
             data-class="add-setting"
-          />
-        </div>
+            onClick={handleOpen}
+          >
+            <img src="/media/user.png" alt="" data-class="add-setting" />
+            <img
+              src="/media/down.png"
+              alt=""
+              className="up-down"
+              data-class="add-setting"
+            />
+          </div>
+        )}
 
         {open && (
           <div className="additional-setting" data-class="add-setting">
