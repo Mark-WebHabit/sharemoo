@@ -10,6 +10,7 @@ import {
   removeLike,
   authUserPosts,
   addProfile,
+  addDescription,
 } from "../controller/postController.js";
 const router = express.Router();
 
@@ -21,6 +22,7 @@ router
   .post("/unlike", removeLike)
   .get("/likes/:id", getLikes)
   .get("/likers/:id", getPostLikers)
-  .post("/upload-profile", addProfile);
+  .post("/upload-profile", addProfile)
+  .post("/update-bio/:user_id", addDescription);
 
 export default router;

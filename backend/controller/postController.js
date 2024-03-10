@@ -93,7 +93,7 @@ export const addPost = asyncHandler(async (req, res) => {
     });
   const insertedId = result[0].insertId;
 
-  const newquery = `SELECT p.id, p.text_content, p.photo_content, u.username, p.created_at, u.profile FROM posts as p INNER JOIN users as u ON p.user_id = u.id  WHERE p.id = ?`;
+  const newquery = `SELECT p.id as post_id, p.text_content, p.photo_content, u.id as user_id, u.username, p.created_at, u.profile FROM posts as p INNER JOIN users as u ON p.user_id = u.id  WHERE p.id = ?`;
   const [newdata] = await pool.execute(newquery, [insertedId]);
   return res.status(201).json({ success: true, data: newdata });
 });
@@ -213,4 +213,33 @@ export const addProfile = asyncHandler(async (req, res) => {
   //result[0].affectedRows
 
   return res.status(201).json({ success: true, data: result || [] });
+});
+
+export const addDescription = asyncHandler(async (req, res) => {
+  const { user_id } = req.params;
+  const { desc } = req.body;
+
+  if (!user_id)
+    return res.status(400).json({
+      success: false,
+      message: "Cannot Update Bio: Missing Arguments",
+    });
+
+  let query = "SELECT username FROM users WHERE id = ? ";
+  const [user] = await pool.execute(query, [user_id]);
+
+  if (!user || user.length === 0)
+    return res
+      .status(401)
+      .json({ success: false, message: "Unauthorized User" });
+
+  query = "UPDATE users SET description = ? WHERE id = ?";
+  const result = await pool.execute(query, [desc, user_id]);
+  const row = result[0].affectedRows;
+  if (!row)
+    return res.status(500).json({ success: false, message: "Server Error" });
+  query = "SELECT description FROM users WHERE id = ?";
+  const [response] = await pool.execute(query, [user_id]);
+
+  return res.status(201).json({ success: true, data: response || [] });
 });

@@ -17,7 +17,8 @@ export const getAuthUser = asyncHandler(async (req, res) => {
   if (!id)
     return res.status(403).json({ success: false, message: "Unknown User" });
 
-  let query = "SELECT username, id, profile, email FROM users WHERE id = ?";
+  let query =
+    "SELECT username, id, profile, email, description FROM users WHERE id = ?";
   const [response] = await pool.execute(query, [id]);
 
   if (response.length == 0) {

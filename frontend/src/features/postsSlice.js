@@ -82,6 +82,7 @@ export const postsSlice = createSlice({
       })
       .addCase(addPost.fulfilled, (state, action) => {
         state.posts.unshift(action.payload);
+        state.authUserPosts.unshift(action.payload);
         state.error = "";
       })
       .addCase(addPost.rejected, (state, action) => {

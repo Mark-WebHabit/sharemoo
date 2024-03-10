@@ -86,3 +86,5 @@
 3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/5		origin:http://localhost:5000		error:res is not defined
 3/9/2024, 7:59:10 PM		status:500		end-point:/posts/likers/4		origin:http://localhost:5000		error:res is not defined
 3/10/2024, 2:17:08 PM		status:500		end-point:/posts/upload-profile		origin:http://localhost:5000		error:Bind parameters must be array if namedPlaceholders parameter is not enabled
+3/10/2024, 5:07:09 PM		status:500		end-point:/posts/new		origin:http://localhost:5000		error:Unknown column 'i.id' in 'field list'
+3/10/2024, 5:36:58 PM		status:201		end-point:/posts/update-bio/4		origin:http://localhost:5000		error:Cannot read properties of undefined (reading 'data')

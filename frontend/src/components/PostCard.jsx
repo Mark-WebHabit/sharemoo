@@ -8,18 +8,7 @@ const PostCard = ({ id, username, profile, photo, text, dt }) => {
   const [likes, setLikes] = useState(0);
   const [likers, setLikers] = useState([]);
   const userId = useSelector((state) => state.user.loggedInUser.id);
-  const loggedInUser = useSelector((state) => state.user.loggedInUser);
   const [isLiked, setIsLiked] = useState(false);
-
-  // useEffect(() => {
-  //   if (loggedInUser.profile) {
-  //     setImageProfile(loggedInUser.profile);
-  //   } else if (profile) {
-  //     setImageProfile(profile);
-  //   } else {
-  //     setImageProfile("/media/user.png");
-  //   }
-  // }, [loggedInUser.profile, profile]);
 
   const handleToggleLike = async (e) => {
     e.preventDefault();

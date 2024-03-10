@@ -34,6 +34,9 @@ export const userSlice = createSlice({
     setProfile: (state, action) => {
       state.loggedInUser.profile = action.payload;
     },
+    setDescription: (state, action) => {
+      state.loggedInUser.description = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -51,5 +54,5 @@ export const userSlice = createSlice({
       });
   },
 });
-export const { setProfile } = userSlice.actions;
+export const { setProfile, setDescription } = userSlice.actions;
 export default userSlice.reducer;

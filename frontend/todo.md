@@ -2,6 +2,7 @@
 
 components/PostModal.jsx
 components/Header.jsx
+components/Profile.jsx
 
 login
 register

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAuthUserPosts } from "../features/postsSlice";
 import storage from "../firebase/config.js";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { setProfile } from "../features/userSlice.js";
+import { setProfile, setDescription } from "../features/userSlice.js";
 
 // components
 import PostCard from "../components/PostCard";
@@ -33,6 +33,32 @@ const Profile = () => {
       setProfilePhoto("/media/user.png");
     }
   }, [current_user.profile]);
+
+  useEffect(() => {
+    if (current_user.description) {
+      setDesc(current_user.description);
+    }
+  }, [current_user.description]);
+
+  const handleChangeDescription = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await instance.post(
+        `/posts/update-bio/${current_user.id}`,
+        { desc }
+      );
+
+      if (response.data) {
+        const result = response.data.data[0].description;
+        dispatch(setDescription(result));
+        setDesc(result);
+        setEditDesc(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -134,8 +160,6 @@ const Profile = () => {
   useEffect(() => {
     if (editDesc) {
       textAreaRef.current.focus();
-    } else {
-      setDesc("");
     }
   }, [editDesc]);
 
@@ -186,7 +210,13 @@ const Profile = () => {
                 alt=""
                 onClick={handleEditDesc}
               />
-              {editDesc && <img src="/media/save.png" alt="" />}
+              {editDesc && (
+                <img
+                  src="/media/save.png"
+                  alt=""
+                  onClick={handleChangeDescription}
+                />
+              )}
             </div>
           </form>
         </div>
@@ -221,6 +251,8 @@ const Container = styled.div`
     align-items: center;
     padding: 1em;
     gap: 1em;
+    background: var(--gray);
+    margin: 1em 0;
 
     & .profile-container {
       width: ${(props) =>
@@ -246,7 +278,7 @@ const Container = styled.div`
     }
 
     & .user-info {
-      width: 60%;
+      width: 80%;
       padding: 1em;
       & p {
         font-size: 2rem;
