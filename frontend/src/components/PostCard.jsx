@@ -3,12 +3,22 @@ import styled from "styled-components";
 import { timeSince } from "../utilities/timeSince.js";
 import { instance } from "../config/instance.js";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const PostCard = ({ id, username, profile, photo, text, dt }) => {
+const PostCard = ({
+  id,
+  username,
+  profile,
+  photo,
+  text,
+  dt,
+  user_id = "none",
+}) => {
   const [likes, setLikes] = useState(0);
   const [likers, setLikers] = useState([]);
   const userId = useSelector((state) => state.user.loggedInUser.id);
   const [isLiked, setIsLiked] = useState(false);
+  const navigate = useNavigate();
 
   const handleToggleLike = async (e) => {
     e.preventDefault();
@@ -62,15 +72,21 @@ const PostCard = ({ id, username, profile, photo, text, dt }) => {
     setIsLiked(isExist);
   }, [likes, likers]);
 
+  const handleRedirectToProfile = () => {
+    navigate(`/profile/${user_id}`);
+  };
+
   return (
     <Container $src={profile || "/media/user.png"}>
       <div className="postowner-header">
-        <div className="avatar-container">
-          {/* replace the src with the actual profile photo of the user if there is */}
-          {/* <img src={profile ? profile : "/media/user.png"} alt="Profile" /> */}
-        </div>
+        <div
+          className="avatar-container"
+          onClick={handleRedirectToProfile}
+        ></div>
         <div className="post-info">
-          <p className="owner-name">{username}</p>
+          <p className="owner-name" onClick={handleRedirectToProfile}>
+            {username}
+          </p>
           <span className="time-passed">{timeSince(dt)}</span>
         </div>
       </div>

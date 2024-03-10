@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAuthUserPosts } from "../features/postsSlice";
+import {
+  fetchAuthUserPosts,
+  clearAuthUserPosts,
+  setProfileId,
+} from "../features/postsSlice";
 import storage from "../firebase/config.js";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { setProfile, setDescription } from "../features/userSlice.js";
@@ -11,9 +16,14 @@ import PostCard from "../components/PostCard";
 import { instance } from "../config/instance.js";
 
 const Profile = () => {
+  const user_id = useParams().id;
+
   const profileContainerRef = useRef();
   const uploadProfileRef = useRef();
   const textAreaRef = useRef();
+
+  const [user, setUser] = useState({});
+  const [userId, setUserId] = useState(0);
   const [desc, setDesc] = useState("");
   const [editDesc, setEditDesc] = useState(false);
   const [profileContainerRefShown, setProfileContainerRefShown] =
@@ -21,33 +31,51 @@ const Profile = () => {
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+
   const dispatch = useDispatch();
   const { authUserPosts } = useSelector((state) => state.posts);
-  const current_user = useSelector((state) => state.user.loggedInUser);
+  // console.log(authUserPosts);
   const limit = 10;
 
   useEffect(() => {
-    if (current_user.profile) {
-      setProfilePhoto(current_user.profile);
+    setUserId(user_id);
+  }, []);
+
+  useEffect(() => {
+    dispatch(setProfileId(userId));
+  }, []);
+
+  useEffect(() => {
+    async function getUserById() {
+      const response = await instance.get(`/user/${userId}`);
+      setUser(response.data.data[0]);
+    }
+    if (userId) {
+      getUserById();
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    if (user.profile) {
+      setProfilePhoto(user.profile);
     } else {
       setProfilePhoto("/media/user.png");
     }
-  }, [current_user.profile]);
+  }, [user.profile]);
 
   useEffect(() => {
-    if (current_user.description) {
-      setDesc(current_user.description);
+    if (user.description) {
+      setDesc(user.description);
     }
-  }, [current_user.description]);
+  }, [user.description]);
 
   const handleChangeDescription = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await instance.post(
-        `/posts/update-bio/${current_user.id}`,
-        { desc }
-      );
+      const response = await instance.post(`/posts/update-bio/${userId}`, {
+        desc,
+      });
 
       if (response.data) {
         const result = response.data.data[0].description;
@@ -72,9 +100,9 @@ const Profile = () => {
         const snapshot = await uploadBytes(storageRef, file);
         imageUrl = await getDownloadURL(snapshot.ref);
 
-        if (imageUrl && current_user.id) {
+        if (imageUrl && userId) {
           const response = await instance.post("/posts/upload-profile", {
-            user_id: current_user.id,
+            user_id: userId,
             downloadUrl: imageUrl,
           });
 
@@ -93,8 +121,8 @@ const Profile = () => {
 
   const fetchPosts = useCallback(async () => {
     if (!hasMore) return;
-    const user_id = current_user.id;
-
+    if (!userId) return;
+    const user_id = userId;
     try {
       const response = await dispatch(
         fetchAuthUserPosts({ offset, limit, user_id })
@@ -107,7 +135,7 @@ const Profile = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [dispatch, offset, hasMore, current_user]);
+  }, [dispatch, offset, hasMore, userId]);
 
   useEffect(() => {
     fetchPosts();
@@ -166,7 +194,7 @@ const Profile = () => {
   return (
     <Container
       $refWidth={profileContainerRef?.current?.clientWidth}
-      $src={current_user.profile || "/media/noprofile.png"}
+      $src={user.profile || "/media/noprofile.png"}
     >
       <div className="auth-user" ref={profileContainerRef}>
         <div
@@ -187,8 +215,8 @@ const Profile = () => {
           )}
         </div>
         <div className="user-info">
-          <p>{current_user && current_user.username}</p>
-          <span>{current_user && current_user.email}</span>
+          <p>{user && user.username}</p>
+          <span>{user && user.email}</span>
 
           {/* futurew development */}
           <small>0 Friends</small>
@@ -221,9 +249,7 @@ const Profile = () => {
           </form>
         </div>
       </div>
-      {!authUserPosts || (!authUserPosts?.length && <NoPostsAvailable />)}
-      {authUserPosts &&
-        authUserPosts?.length &&
+      {authUserPosts && authUserPosts.length ? (
         authUserPosts.map((post) => (
           <PostCard
             key={post.post_id}
@@ -234,7 +260,10 @@ const Profile = () => {
             photo={post.photo_content}
             dt={post.created_at}
           />
-        ))}
+        ))
+      ) : (
+        <NoPostsAvailable />
+      )}
     </Container>
   );
 };

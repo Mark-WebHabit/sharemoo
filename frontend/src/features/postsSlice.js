@@ -44,6 +44,7 @@ const initialState = {
   posts: [],
   authUserPosts: [],
   fetchingStatus: "idle",
+  profileId: 0,
   error: "",
   responseCount: 0,
 };
@@ -51,7 +52,14 @@ const initialState = {
 export const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
+  reducers: {
+    clearAuthUserPosts: (state) => {
+      state.authUserPosts = [];
+    },
+    setProfileId: (state, action) => {
+      state.profileId = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllPosts.fulfilled, (state, action) => {
@@ -70,11 +78,17 @@ export const postsSlice = createSlice({
       .addCase(fetchAuthUserPosts.fulfilled, (state, action) => {
         state.responseCount = action.payload.length;
         const newPosts = action.payload;
-        const allPosts = [...state.authUserPosts, ...newPosts];
-        state.authUserPosts = allPosts.filter(
-          (post, index, self) =>
-            index === self.findIndex((p) => p.post_id === post.post_id) // Assuming each post has a unique `id`
-        );
+        let prevId = newPosts[0].user_id;
+
+        if (prevId === state.profileId) {
+          const allPosts = [...state.authUserPosts, ...newPosts];
+          state.authUserPosts = allPosts.filter(
+            (post, index, self) =>
+              index === self.findIndex((p) => p.post_id === post.post_id) // Assuming each post has a unique `id`
+          );
+        } else {
+          state.authUserPosts = newPosts;
+        }
         state.error = "";
       })
       .addCase(fetchAuthUserPosts.rejected, (state, action) => {
@@ -90,5 +104,5 @@ export const postsSlice = createSlice({
       });
   },
 });
-
+export const { clearAuthUserPosts, setProfileId } = postsSlice.actions;
 export default postsSlice.reducer;

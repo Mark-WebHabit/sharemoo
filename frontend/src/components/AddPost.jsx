@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import AvatarContainer from "./AvatarContainer";
+import { useSelector } from "react-redux";
 const AddPost = ({ handleAddPost }) => {
+  const { profile } = useSelector((state) => state.user.loggedInUser);
   return (
     // this component enables the user to add post, by clicking a form will prompt
     <Container>
-      <AvatarContainer />
+      <AvatarContainer src={profile} />
       <div className="post-bar" onClick={handleAddPost}>
         <p>Share something...</p>
       </div>

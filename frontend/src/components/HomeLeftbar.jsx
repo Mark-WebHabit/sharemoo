@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // svgs
 import HomeSvg from "../assets/svgs/HomeSvg";
@@ -11,6 +12,7 @@ import HomeAddFriend from "../assets/svgs/HomeAddFriend";
 
 const HomeLeftbar = () => {
   const navigate = useNavigate();
+  const { id } = useSelector((state) => state.user.loggedInUser);
   const handleNavigate = (e) => {
     navigate(e.target.dataset.name);
   };
@@ -20,7 +22,7 @@ const HomeLeftbar = () => {
         <HomeSvg />
         <p>Home</p>
       </div>
-      <div data-name="/profile" onClick={handleNavigate}>
+      <div data-name={`/profile/${id}`} onClick={handleNavigate}>
         <HomeUser />
         <p>Profile</p>
       </div>

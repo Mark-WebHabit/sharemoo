@@ -66,6 +66,7 @@ const HomePage = () => {
         posts.map((post) => (
           <PostCard
             key={post.post_id}
+            user_id={post.user_id}
             id={post.post_id}
             username={post.username}
             profile={post.profile}

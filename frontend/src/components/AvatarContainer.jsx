@@ -3,20 +3,18 @@ import styled from "styled-components";
 
 const AvatarContainer = ({
   ratio = 50,
-  src = "user",
+  src = "/media/user.png",
   imgWidth = "90%",
   event = null,
 }) => {
   return (
     <Container
+      $src={src}
       className="avatar-container"
       $ratio={ratio}
       $imgWidth={imgWidth}
       onClick={event}
-    >
-      {/* replace with the user's actual photo */}
-      <img src={`/media/${src}.png`} alt="Profile" />
-    </Container>
+    ></Container>
   );
 };
 
@@ -29,8 +27,5 @@ const Container = styled.div`
   display: grid;
   place-items: center;
   cursor: pointer;
-
-  & img {
-    width: ${(props) => props.$imgWidth};
-  }
+  background: url(${(props) => props.$src}) no-repeat center center / cover;
 `;
