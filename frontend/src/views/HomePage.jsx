@@ -7,16 +7,14 @@ import { fetchAllPosts } from "../features/postsSlice";
 import AddPost from "../components/AddPost";
 import PostCard from "../components/PostCard";
 import PostModal from "../components/PostModal";
-import { instance } from "../config/instance";
 
 const HomePage = () => {
   const [addPost, setAddPost] = useState(false);
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const dispatch = useDispatch();
-  const { responseCount, posts, fetchingStatus } = useSelector(
-    (state) => state.posts
-  );
+  const { posts } = useSelector((state) => state.posts);
+
   const limit = 10;
 
   const handleAddPost = () => {
@@ -57,15 +55,18 @@ const HomePage = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  const NoPostsAvailable = () => <h1 className="no-posts">No Posts Yet</h1>;
+
   return (
     <Container>
       {addPost && <PostModal handleAddPost={handleAddPost} />}
       <AddPost handleAddPost={handleAddPost} />
+      {!posts || (!posts.length && <NoPostsAvailable />)}
       {posts &&
         posts.map((post) => (
           <PostCard
-            key={post.id}
-            id={post.id}
+            key={post.post_id}
+            id={post.post_id}
             username={post.username}
             profile={post.profile}
             text={post.text_content}
@@ -79,4 +80,9 @@ const HomePage = () => {
 
 export default HomePage;
 
-const Container = styled.div``;
+const Container = styled.div`
+  & .no-posts {
+    text-align: center;
+    margin: 1em 0;
+  }
+`;

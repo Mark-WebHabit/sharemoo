@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { instance } from "../config/instance";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchLoggedInUser } from "../features/userSlice";
 
@@ -47,7 +47,7 @@ const MainLayout = () => {
       <div className="wrapper">
         <HomeLeftbar />
         <GridBodyLayout>
-          <HomePage />
+          <Outlet />
         </GridBodyLayout>
         <HomeRightbar />
       </div>

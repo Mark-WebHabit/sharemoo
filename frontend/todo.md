@@ -2,3 +2,10 @@
 
 components/PostModal.jsx
 components/Header.jsx
+
+login
+register
+session
+middleware
+post
+like, remove like

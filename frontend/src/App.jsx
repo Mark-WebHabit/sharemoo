@@ -6,9 +6,10 @@ import MainLayout from "./layout/MainLayout";
 import AuthLayout from "./layout/AuthLayout";
 
 // views
-import Home from "./views/Home";
+import HomePage from "./views/HomePage";
 import Login from "./views/Login";
 import Register from "./views/Register";
+import Profile from "./views/Profile";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<MainLayout />}>
-            <Route index element={<Home />} />
+            <Route index element={<HomePage />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
 
           <Route path="/auth" element={<AuthLayout />}>

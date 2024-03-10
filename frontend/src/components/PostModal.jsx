@@ -52,7 +52,7 @@ const PostModal = ({ handleAddPost }) => {
 
     let imageUrl; // Declare imageUrl variable to store the download URL
     if (selectedFile) {
-      const storageRef = ref(storage, selectedFile.name);
+      const storageRef = ref(storage, `images/${selectedFile.name}`);
       try {
         const snapshot = await uploadBytes(storageRef, selectedFile);
         imageUrl = await getDownloadURL(snapshot.ref);

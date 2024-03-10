@@ -6,10 +6,8 @@ export const fetchAllPosts = asyncHandler(async (req, res) => {
   let offset = parseInt(req.query?.offset) || 0; // Ensure offset is a number
   let limit = parseInt(req.query?.limit) || 10; // Ensure limit is a number
 
-  // Dynamically inserting LIMIT and OFFSET values directly in the query
-  // This approach should be used cautiously and is shown here for troubleshooting.
   // Ensure 'offset' and 'limit' are properly sanitized and validated to prevent SQL Injection.
-  const query = `SELECT p.id, p.text_content, p.photo_content, u.username, p.created_at, u.profile FROM posts as p INNER JOIN users as u ON p.user_id = u.id ORDER BY p.created_at DESC LIMIT ${limit} OFFSET ${offset};`;
+  const query = `SELECT p.id as post_id, p.text_content, p.photo_content, u.id as user_id, u.username, p.created_at, u.profile FROM posts as p INNER JOIN users as u ON p.user_id = u.id ORDER BY p.created_at DESC LIMIT ${limit} OFFSET ${offset};`;
 
   try {
     // Execute the query without parameter array since values are directly in the query string
@@ -17,6 +15,40 @@ export const fetchAllPosts = asyncHandler(async (req, res) => {
 
     // If there are no posts, this returns an empty array as before
     return res.json({ success: true, data: posts });
+  } catch (error) {
+    console.error("Database query error:", error);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+export const authUserPosts = asyncHandler(async (req, res) => {
+  const { user_id } = req.params;
+
+  let offset = parseInt(req.query?.offset) || 0; // Ensure offset is a number
+  let limit = parseInt(req.query?.limit) || 10; // Ensure limit is a number
+
+  try {
+    if (!user_id)
+      return res.status(400).json({
+        success: false,
+        message: "Cannot Add Like: Missing Arguments",
+      });
+
+    let query = "SELECT username FROM users WHERE id = ? ";
+    const [user] = await pool.execute(query, [user_id]);
+
+    if (!user || user.length === 0)
+      return res
+        .status(401)
+        .json({ success: false, message: "Unauthorized User" });
+
+    // Ensure 'offset' and 'limit' are properly sanitized and validated to prevent SQL Injection.
+    query = `SELECT p.id as post_id, p.text_content, p.photo_content, u.id as user_id, u.username, p.created_at, u.profile FROM posts as p INNER JOIN users as u ON p.user_id = u.id WHERE u.id = ? ORDER BY p.created_at DESC LIMIT ${limit} OFFSET ${offset} `;
+    // Execute the query without parameter array since values are directly in the query string
+    const [posts] = await pool.execute(query, [user_id]);
+
+    // If there are no posts, this returns an empty array as before
+    return res.json({ success: true, data: posts || [] });
   } catch (error) {
     console.error("Database query error:", error);
     return res.status(500).json({ success: false, message: "Server error" });
@@ -157,4 +189,28 @@ export const removeLike = asyncHandler(async (req, res) => {
   const [row] = await pool.execute(query, [user_id, post_id]);
 
   return res.status(201).json({ success: true, data: row || [] });
+});
+
+export const addProfile = asyncHandler(async (req, res) => {
+  const { user_id, downloadUrl } = req.body;
+
+  if (!user_id && !downloadUrl)
+    return res.status(400).json({
+      success: false,
+      message: "Cannot Update Profile: Missing Arguments",
+    });
+
+  let query = "SELECT username FROM users WHERE id = ? ";
+  const [user] = await pool.execute(query, [user_id]);
+
+  if (!user || user.length === 0)
+    return res
+      .status(401)
+      .json({ success: false, message: "Unauthorized User" });
+
+  query = "UPDATE users SET profile = ? WHERE id = ?";
+  const result = await pool.execute(query, [downloadUrl, user_id]);
+  //result[0].affectedRows
+
+  return res.status(201).json({ success: true, data: result || [] });
 });

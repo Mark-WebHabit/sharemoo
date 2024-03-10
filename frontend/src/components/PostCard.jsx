@@ -8,7 +8,18 @@ const PostCard = ({ id, username, profile, photo, text, dt }) => {
   const [likes, setLikes] = useState(0);
   const [likers, setLikers] = useState([]);
   const userId = useSelector((state) => state.user.loggedInUser.id);
+  const loggedInUser = useSelector((state) => state.user.loggedInUser);
   const [isLiked, setIsLiked] = useState(false);
+
+  // useEffect(() => {
+  //   if (loggedInUser.profile) {
+  //     setImageProfile(loggedInUser.profile);
+  //   } else if (profile) {
+  //     setImageProfile(profile);
+  //   } else {
+  //     setImageProfile("/media/user.png");
+  //   }
+  // }, [loggedInUser.profile, profile]);
 
   const handleToggleLike = async (e) => {
     e.preventDefault();
@@ -63,11 +74,11 @@ const PostCard = ({ id, username, profile, photo, text, dt }) => {
   }, [likes, likers]);
 
   return (
-    <Container>
+    <Container $src={profile || "/media/user.png"}>
       <div className="postowner-header">
         <div className="avatar-container">
           {/* replace the src with the actual profile photo of the user if there is */}
-          <img src={profile ? profile : "/media/user.png"} alt="Profile" />
+          {/* <img src={profile ? profile : "/media/user.png"} alt="Profile" /> */}
         </div>
         <div className="post-info">
           <p className="owner-name">{username}</p>
@@ -118,6 +129,7 @@ const Container = styled.div`
       display: grid;
       place-items: center;
       margin-right: 0.5em;
+      background: url(${(props) => props.$src}) no-repeat center center / cover;
       & img {
         width: 90%;
       }

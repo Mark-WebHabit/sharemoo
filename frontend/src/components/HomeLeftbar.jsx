@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 // svgs
 import HomeSvg from "../assets/svgs/HomeSvg";
@@ -9,13 +10,17 @@ import HomeFriends from "../assets/svgs/HomeFriends";
 import HomeAddFriend from "../assets/svgs/HomeAddFriend";
 
 const HomeLeftbar = () => {
+  const navigate = useNavigate();
+  const handleNavigate = (e) => {
+    navigate(e.target.dataset.name);
+  };
   return (
     <Container>
-      <div>
+      <div data-name="/" onClick={handleNavigate}>
         <HomeSvg />
         <p>Home</p>
       </div>
-      <div>
+      <div data-name="/profile" onClick={handleNavigate}>
         <HomeUser />
         <p>Profile</p>
       </div>
@@ -55,6 +60,10 @@ const Container = styled.div`
     margin-bottom: 1em;
     cursor: pointer;
     border-radius: 0.6em;
+
+    & svg, & p{
+      pointer-events: none;
+    }
 
     & svg {
       width: 14%;
