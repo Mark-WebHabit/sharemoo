@@ -34,16 +34,20 @@ const Profile = () => {
 
   const dispatch = useDispatch();
   const { authUserPosts } = useSelector((state) => state.posts);
-  // console.log(authUserPosts);
   const limit = 10;
 
   useEffect(() => {
     setUserId(user_id);
-  }, []);
+  }, [user_id]);
+
+  useEffect(() => {
+    setOffset(0);
+    setHasMore(true);
+  }, [userId]);
 
   useEffect(() => {
     dispatch(setProfileId(userId));
-  }, []);
+  }, [user_id]);
 
   useEffect(() => {
     async function getUserById() {
@@ -61,13 +65,13 @@ const Profile = () => {
     } else {
       setProfilePhoto("/media/user.png");
     }
-  }, [user.profile]);
+  }, [user.profile, userId]);
 
   useEffect(() => {
     if (user.description) {
       setDesc(user.description);
     }
-  }, [user.description]);
+  }, [user.description, userId]);
 
   const handleChangeDescription = async (e) => {
     e.preventDefault();
@@ -135,11 +139,11 @@ const Profile = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [dispatch, offset, hasMore, userId]);
+  }, [dispatch, offset, hasMore, limit, userId]);
 
   useEffect(() => {
     fetchPosts();
-  }, [fetchPosts]);
+  }, [fetchPosts, userId]);
 
   useEffect(() => {
     if (profileContainerRef.current) {
@@ -259,6 +263,7 @@ const Profile = () => {
             text={post.text_content}
             photo={post.photo_content}
             dt={post.created_at}
+            user_id={userId}
           />
         ))
       ) : (

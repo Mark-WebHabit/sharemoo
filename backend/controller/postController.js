@@ -243,3 +243,15 @@ export const addDescription = asyncHandler(async (req, res) => {
 
   return res.status(201).json({ success: true, data: response || [] });
 });
+
+export const deletePostById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  if (!id)
+    return res
+      .status(400)
+      .json({ success: false, message: "Cannot delete post: Missing Id" });
+
+  let query = "DELETE FROM posts WHERE id = ?";
+  const result = await pool.execute(query, [id]);
+});

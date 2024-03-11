@@ -47,6 +47,7 @@ const initialState = {
   profileId: 0,
   error: "",
   responseCount: 0,
+  clickDots: 0,
 };
 
 export const postsSlice = createSlice({
@@ -58,6 +59,24 @@ export const postsSlice = createSlice({
     },
     setProfileId: (state, action) => {
       state.profileId = action.payload;
+    },
+    setSelectDots: (state, action) => {
+      state.clickDots = action.payload;
+    },
+    setDeletePostState: (state) => {
+      let index = null;
+      index = state.posts.findIndex((post) => post.post_id === state.clickDots);
+      if (index !== -1) {
+        state.posts.splice(index, 1);
+      }
+
+      index = null;
+      index = state.authUserPosts.findIndex(
+        (post) => post.post_id === state.clickDots
+      );
+      if (index !== -1) {
+        state.authUserPosts.splice(index, 1);
+      }
     },
   },
   extraReducers: (builder) => {
@@ -78,7 +97,7 @@ export const postsSlice = createSlice({
       .addCase(fetchAuthUserPosts.fulfilled, (state, action) => {
         state.responseCount = action.payload.length;
         const newPosts = action.payload;
-        let prevId = newPosts[0].user_id;
+        let prevId = newPosts[0]?.user_id;
 
         if (prevId === state.profileId) {
           const allPosts = [...state.authUserPosts, ...newPosts];
@@ -104,5 +123,10 @@ export const postsSlice = createSlice({
       });
   },
 });
-export const { clearAuthUserPosts, setProfileId } = postsSlice.actions;
+export const {
+  clearAuthUserPosts,
+  setProfileId,
+  setSelectDots,
+  setDeletePostState,
+} = postsSlice.actions;
 export default postsSlice.reducer;

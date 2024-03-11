@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { timeSince } from "../utilities/timeSince.js";
 import { instance } from "../config/instance.js";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setSelectDots, setDeletePostState } from "../features/postsSlice.js";
 
 const PostCard = ({
   id,
@@ -18,7 +19,38 @@ const PostCard = ({
   const [likers, setLikers] = useState([]);
   const userId = useSelector((state) => state.user.loggedInUser.id);
   const [isLiked, setIsLiked] = useState(false);
+  const [showMoreOptions, setShowMoreOptions] = useState(false);
+  const [ownedPost, setOwnedPost] = useState();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const authId = useSelector((state) => state.user.loggedInUser).id;
+  const selectedDots = useSelector((state) => state.posts.clickDots);
+
+  useEffect(() => {
+    setOwnedPost(parseInt(authId) === parseInt(user_id));
+  }, [authId, user_id]);
+
+  useEffect(() => {
+    if (selectedDots !== id) {
+      setShowMoreOptions(false);
+    }
+  }, [selectedDots]);
+
+  const handleDeletePost = async () => {
+    if (!selectedDots) return;
+    try {
+      dispatch(setDeletePostState(selectedDots));
+      const response = await instance.delete(`/posts/delete/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleShowMoreOptions = () => {
+    dispatch(setSelectDots(id));
+    setShowMoreOptions(!showMoreOptions);
+  };
 
   const handleToggleLike = async (e) => {
     e.preventDefault();
@@ -78,6 +110,24 @@ const PostCard = ({
 
   return (
     <Container $src={profile || "/media/user.png"}>
+      {ownedPost && (
+        <div className="more-options">
+          <div className="option-wrapper">
+            <img
+              src="/media/dots.png"
+              alt="More Options"
+              onClick={handleShowMoreOptions}
+            />
+
+            {showMoreOptions && (
+              <div className="options">
+                <p onClick={handleDeletePost}>Delete</p>
+                <p>Edit</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
       <div className="postowner-header">
         <div
           className="avatar-container"
@@ -120,6 +170,45 @@ const Container = styled.div`
   flex-direction: column;
   padding: 1em;
   margin-bottom: 1em;
+  position: relative;
+
+  & .more-options {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+
+    & .option-wrapper {
+      width: 100%;
+      height: 100%;
+      position: relative;
+
+      & .options {
+        position: absolute;
+        background: var(--gray);
+        right: 100%;
+        top: 0.5em;
+        padding: 0.5em 1em;
+        border-radius: 0.4em;
+        box-shadow: 0px 0px 5px 1px #000;
+        z-index: 1;
+
+        & p {
+          padding: 0.2em 0.5em;
+          transition: all 200ms;
+
+          &:hover {
+            background: white;
+            color: black;
+            cursor: pointer;
+          }
+        }
+      }
+
+      & img {
+        cursor: pointer;
+      }
+    }
+  }
 
   & .postowner-header {
     display: flex;
@@ -134,6 +223,7 @@ const Container = styled.div`
       display: grid;
       place-items: center;
       margin-right: 0.5em;
+      cursor: pointer;
       background: url(${(props) => props.$src}) no-repeat center center / cover;
       & img {
         width: 90%;
@@ -145,6 +235,7 @@ const Container = styled.div`
       font-weight: 500;
       font-size: 1rem;
       line-height: 1rem;
+      cursor: pointer;
     }
 
     & .post-info .time-passed {

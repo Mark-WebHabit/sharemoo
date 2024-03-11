@@ -3,6 +3,7 @@
 components/PostModal.jsx
 components/Header.jsx
 components/Profile.jsx
+components/PostCard.jsx
 
 login
 register

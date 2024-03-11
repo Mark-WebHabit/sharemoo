@@ -11,6 +11,7 @@ import {
   authUserPosts,
   addProfile,
   addDescription,
+  deletePostById,
 } from "../controller/postController.js";
 const router = express.Router();
 
@@ -23,6 +24,7 @@ router
   .get("/likes/:id", getLikes)
   .get("/likers/:id", getPostLikers)
   .post("/upload-profile", addProfile)
-  .post("/update-bio/:user_id", addDescription);
+  .post("/update-bio/:user_id", addDescription)
+  .delete("/delete/:id", deletePostById);
 
 export default router;

@@ -8,7 +8,7 @@ const GridBodyLayout = ({ children }) => {
 export default GridBodyLayout;
 
 const Container = styled.main`
-  width: 50%;
+  width: 40%;
   max-width: 50%;
   height: 100%;
   display: flex;
